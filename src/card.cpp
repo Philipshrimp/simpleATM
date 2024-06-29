@@ -7,6 +7,10 @@ Card::Card(std::string account, std::string pin_number, uint16_t balance) {
   _balance = balance;
 }
 
+std::string Card::get_account() {
+  return _account;
+}
+
 std::string Card::get_pin_number() {
   return _pin_number;
 }
