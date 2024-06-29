@@ -1,0 +1,44 @@
+cmake_minimum_required(VERSION 3.11)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+set(CMAKE_VERBOSE_MAKEFILE ON)
+
+project(
+  SIMPLE_ATM_PROJECT
+  LANGUAGES CXX
+  VERSION 1.0.0
+)
+
+set(CPP_COMFILE_FLAGS_MSVC /W4 /WX /permissive-)
+set(CPP_COMFILE_FLAGS_OTHERS -Wall -Wpedantic -Wextra -Werror)
+
+if(NOT CPP_COMFILE_FLAGS)
+  if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    set(CPP_COMFILE_FLAGS ${CPP_COMFILE_FLAGS_MSVC})
+  else()
+    set(CPP_COMFILE_FLAGS ${CPP_COMFILE_FLAGS_OTHERS})
+  endif()
+endif()
+
+set(${PROJECT_NAME}_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
+set(${PROJECT_NAME}_SOURCE_PATH "${${PROJECT_NAME}_ROOT_PATH}/src")
+set(${PROJECT_NAME}_INCLUDE_PATH "${${PROJECT_NAME}_ROOT_PATH}/include")
+
+set(${PROJECT_NAME}_SOURCE_FILES
+  main.cpp
+  src/ATM.cpp
+  src/card.cpp
+)
+
+add_executable(${PROJECT_NAME}
+  ${${PROJECT_NAME}_SOURCE_FILES}
+)
+
+target_include_directories(${PROJECT_NAME} PUBLIC
+  ${${PROJECT_NAME}_INCLUDE_PATH}
+  include/ATM.hpp
+  include/card.hpp
+)
